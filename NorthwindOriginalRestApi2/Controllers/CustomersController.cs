@@ -59,5 +59,23 @@ namespace NorthwindOriginalRestApi2.Controllers
             }
         }
 
+
+        // Uuden Asiakkaan lisääminen tauluun  Post fitterillä,
+        [HttpPost]
+        public ActionResult AddNew([FromBody] Customer customer)
+        {
+            try
+            {
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                return Ok($"Lisättiin uusi asikas {customer.CompanyName} from {customer.City}");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Tapahtunut virhe. Lue Lisää: " + e.InnerException);
+            }
+        }
+
     }
 }
