@@ -145,5 +145,30 @@ namespace NorthwindOriginalRestApi2.Controllers
             
         }
 
+
+        // Hakee nimen osalla eli jollakin muulla kuin id.llä tai pk 
+        [HttpGet("compname/{cname}")]  // Kovakoodattu osuuus /api/companyname/joku haluttu hakusana
+        public ActionResult GetByName(string cname) // parametri  
+        {
+            try
+            {
+
+                // where metodi  haku termillä nimen osalla 
+                var customer = db.Customers.Where(c => c.CompanyName.Contains(cname));
+
+
+                // var customer = from c in db.Customers where c.CompanyName.Contains(cname) select c;  // tämän on sama mutta traditionalisempi
+
+
+                // var customer = db.Customers.Where(c => c.CompanyName == cname);  // perfect match
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException);
+            }
+
+        }
+
     }
 }
