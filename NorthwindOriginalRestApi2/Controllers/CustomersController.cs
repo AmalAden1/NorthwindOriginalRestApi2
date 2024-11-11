@@ -11,10 +11,18 @@ namespace NorthwindOriginalRestApi2.Controllers
     {
 
         // Alustetaan tietokantayhteys NorwindOriginalContextiin.
-
-        NorthwindOriginalContext db = new NorthwindOriginalContext();
+        // ala oleve Context on perinteinen tapa
+        // NorthwindOriginalContext db = new NorthwindOriginalContext();
         // NorthwindOriginalContext db = new(); sama kuin yllä oleva mutta lyhyt versio.
 
+
+        //Dependency injektio tapa
+        private NorthwindOriginalContext db;
+
+        public CustomersController(NorthwindOriginalContext dbparametri)
+        {
+            db= dbparametri;
+        }
 
         // HttpGet -metodi ja public - ja paluu tyyppi on ActionResult joka ei ota yhtää paratyyppiä
 
