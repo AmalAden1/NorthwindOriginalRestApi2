@@ -17,6 +17,17 @@ builder.Services.AddDbContext<NorthwindOriginalContext>(options => options.UseSq
     ));
 
 
+
+//---- Cors M‰‰ritys---- Ulkopuolisen sovelluksen yhteyden ottaa vaan cors m‰‰ritellyn avulla. 
+//-- Oletus ilman Cors m‰‰rityst‰ ei saa yhteytt‰ sovellukseen 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("all",
+    builder => builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +38,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//-- ottaa kaikki yhteyden cors m‰‰ritys avulla 
+app.UseCors("all");
 
 app.UseAuthorization();
 
